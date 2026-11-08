@@ -1,11 +1,13 @@
+
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- KUNCI ZOOM - GA BISA ZOOM IN / OUT LAGI -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Chat User - Chat rahasia</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{font-family:'Poppins',sans-serif;box-sizing:border-box}
+*{font-family:'Poppins',sans-serif;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--bg1:#0f0f14;--bg2:#1a1630;--card:rgba(255,255,255,0.08);--me:linear-gradient(135deg,#a855f7,#ec4899);--meSolid:#a855f7;--meShadow:rgba(168,85,247,.45);--border:rgba(255,255,255,0.12);--glow1:#a855f7;--glow2:#ec4899;--bgDark:#0f0f14;--bgDark2:#1a1630;}
 body[data-bubble="ungu"]{--me:linear-gradient(135deg,#a855f7,#ec4899);--meSolid:#a855f7;--meShadow:rgba(168,85,247,.45);--glow1:#a855f7;--glow2:#ec4899;--bgDark:#0f0f14;--bgDark2:#1a1630;--bg1:#f5f3ff;--bg2:#e9d5ff;--you:#6d28d9;--youLight:#ddd6fe;--youText:#4c1d95;--youShadow:rgba(109,40,217,.35)}
 body[data-bubble="biru"]{--me:linear-gradient(135deg,#3b82f6,#06b6d4);--meSolid:#3b82f6;--meShadow:rgba(59,130,246,.45);--glow1:#3b82f6;--glow2:#06b6d4;--bgDark:#070f1f;--bgDark2:#0b1e3a;--bg1:#eff6ff;--bg2:#dbeafe;--you:#1d4ed8;--youLight:#bfdbfe;--youText:#1e40af;--youShadow:rgba(29,78,216,.35)}
@@ -15,16 +17,29 @@ body[data-bubble="pink"]{--me:linear-gradient(135deg,#ec4899,#f43f5e);--meSolid:
 body[data-bubble="hitam"]{--me:linear-gradient(135deg,#475569,#0f172a);--meSolid:#334155;--meShadow:rgba(0,0,0,.5);--glow1:#475569;--glow2:#0f172a;--bgDark:#050505;--bgDark2:#111827;--bg1:#f8fafc;--bg2:#e2e8f0;--you:#334155;--youLight:#cbd5e1;--youText:#1e293b;--youShadow:rgba(51,65,85,.35)}
 body[data-bubble="kuning"]{--me:linear-gradient(135deg,#eab308,#f97316);--meSolid:#eab308;--meShadow:rgba(234,179,8,.45);--glow1:#eab308;--glow2:#f97316;--bgDark:#171204;--bgDark2:#2a1f08;--bg1:#fefce8;--bg2:#fef9c3;--you:#a16207;--youLight:#fef08a;--youText:#854d0e;--youShadow:rgba(161,98,7,.35)}
 
-/* ===== BACKGROUND KEKUNCI - GA BAKAL KEGESER LAGI ===== */
-html,body{height:100%;overscroll-behavior:none}
-body{margin:0;min-height:100vh;min-height:100dvh;background:var(--bgDark);display:flex;justify-content:center;align-items:center;padding:16px;overflow-x:hidden;position:relative}
-body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 600px at 15% -10%, var(--glow1) 0%, transparent 55%),radial-gradient(700px 500px at 100% 110%, var(--glow2) 0%, transparent 55%),linear-gradient(180deg,var(--bgDark2),var(--bgDark))}
+/* ===== KUNCI TOTAL: TENGAH + GA BISA GESER + GA BISA ZOOM ===== */
+html,body{height:100%;height:100dvh;overscroll-behavior:none}
+html{overflow:hidden}
+body{
+  margin:0;padding:0;
+  background:var(--bgDark);
+  /* INI YANG BIKIN KE TENGAH BENERAN */
+  display:flex;justify-content:center;align-items:center;
+  /* INI YANG BIKIN GA BISA GESER KIRI-KANAN */
+  overflow:hidden;position:fixed;inset:0;width:100%;
+  touch-action:manipulation;
+  -webkit-user-select:none;user-select:none;
+}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(900px 600px at 15% -10%, var(--glow1) 0%, transparent 55%),radial-gradient(700px 500px at 100% 110%, var(--glow2) 0%, transparent 55%),linear-gradient(180deg,var(--bgDark2),var(--bgDark))}
 body.light{background:var(--bg1)}
 body.light::before{background:radial-gradient(900px 600px at 15% -10%, var(--glow1) 0%, transparent 50%),radial-gradient(700px 500px at 100% 110%, var(--glow2) 0%, transparent 50%),linear-gradient(180deg,var(--bg2),var(--bg1))}
 body.light{color:#111;--card:rgba(255,255,255,0.85);--border:rgba(0,0,0,0.1)}
+/* Chat-nya doang yang boleh di-scroll & di-select */
+#chat{ -webkit-user-select:text;user-select:text;touch-action:pan-y;overscroll-behavior:contain }
+input,textarea{ -webkit-user-select:text;user-select:text;touch-action:manipulation }
 /* ===== SELESAI KUNCI ===== */
 
-.card{width:100%;max-width:420px;background:var(--card);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;transition:.4s;flex-shrink:0}
+.card{width:calc(100% - 24px);max-width:420px;height:calc(100dvh - 24px);max-height:760px;background:var(--card);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;z-index:1;margin:auto;flex-shrink:0}
 .nama-error{display:none;align-items:center;gap:8px;background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.45);color:#fca5a5;padding:10px 12px;border-radius:12px;font-size:12px;font-weight:500;text-align:left;margin:-4px 0 12px;animation:shake .35s ease, fadeIn .25s ease}
 body.light .nama-error{background:#fef2f2;color:#dc2626;border-color:#fecaca}
 .nama-error.show{display:flex}
@@ -36,8 +51,8 @@ body.light .nama-error{background:#fef2f2;color:#dc2626;border-color:#fecaca}
 .mini-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .mini-toast.error{background:#ef4444}
 .mini-toast.success{background:#22c55e}
-#pageLogin{padding:32px 24px;text-align:center;animation:pageIn .5s ease}
-#pageChat{display:none;flex-direction:column;height:88vh;height:88dvh;max-height:720px;position:relative}
+#pageLogin{padding:32px 24px;text-align:center;animation:pageIn .5s ease;overflow-y:auto}
+#pageChat{display:none;flex-direction:column;height:100%;position:relative}
 #pageChat.show{animation:pageIn .45s cubic-bezier(.2,.9,.3,1.2)}
 #pageChat.hide{animation:pageOut .3s ease forwards}
 #pageLogin.hide{animation:pageOut .3s ease forwards}
@@ -48,34 +63,32 @@ body.light .nama-error{background:#fef2f2;color:#dc2626;border-color:#fecaca}
 @keyframes slideUp{from{transform:translateY(20px) scale(.95);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
 @keyframes bounceIn{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
 .logo{width:64px;height:64px;margin:0 auto 16px;background:var(--me);border-radius:18px;display:grid;place-items:center;font-size:28px;animation:float 3s infinite}
-.input{width:100%;background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:14px;padding:14px 16px;color:inherit;outline:none;margin-bottom:12px;transition:.2s}
+.input{width:100%;background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:14px;padding:14px 16px;color:inherit;outline:none;margin-bottom:12px}
 .input:focus{border-color:var(--meSolid);box-shadow:0 0 0 4px var(--meShadow)}
 body.light .input{background:#fff}
-.btn{width:100%;padding:14px;border:none;border-radius:14px;background:var(--me);color:#fff;font-weight:700;cursor:pointer;transition:.2s;box-shadow:0 8px 20px var(--meShadow)}
-.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.btn{width:100%;padding:14px;border:none;border-radius:14px;background:var(--me);color:#fff;font-weight:700;cursor:pointer;box-shadow:0 8px 20px var(--meShadow)}
 .btn:active{transform:scale(0.97)}
-.header{padding:14px 16px;background:rgba(0,0,0,0.2);display:flex;justify-content:space-between;align-items:center;gap:10px}
+/* HEADER FIX - BIAR GA KEPOTONG KAYAK DI SCREENSHOT */
+.header{padding:10px 12px;background:rgba(0,0,0,0.2);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:nowrap;min-width:0}
 body.light .header{background:rgba(255,255,255,0.6)}
-.actions{display:flex;gap:8px}
-.iconBtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:transparent;color:inherit;cursor:pointer;display:grid;place-items:center;font-size:16px;flex-shrink:0;transition:.2s}
-.iconBtn:hover{transform:scale(1.08);background:rgba(255,255,255,.08)}
+.actions{display:flex;gap:5px;flex-shrink:0}
+.iconBtn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:transparent;color:inherit;cursor:pointer;display:grid;place-items:center;font-size:15px;flex-shrink:0}
 #chat{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
 .bubble{max-width:82%;padding:10px 14px;border-radius:18px;font-size:13.5px;position:relative;word-wrap:break-word;animation:pop 0.25s ease}
 .me{align-self:flex-end;background:var(--me);color:#fff;border-bottom-right-radius:6px;box-shadow:0 4px 14px var(--meShadow)}
 .you{align-self:flex-start;background:var(--you);color:#fff;border-bottom-left-radius:6px;box-shadow:0 4px 14px var(--youShadow)}
-body.light .you{background:var(--youLight);color:var(--youText);box-shadow:0 4px 14px rgba(0,0,0,.08)}
+body.light .you{background:var(--youLight);color:var(--youText)}
 .replyTag{font-size:10px;opacity:0.7;border-left:2px solid currentColor;padding-left:6px;margin-bottom:4px}
 .meta{font-size:9px;opacity:0.6;margin-top:4px;text-align:right}
-.system{align-self:center;background:rgba(255,255,255,0.08);border:1px solid var(--meSolid);color:var(--meSolid);font-size:11px;padding:6px 14px;border-radius:20px;text-align:center;animation:bounceIn .3s ease}
+.system{align-self:center;background:rgba(255,255,255,0.08);border:1px solid var(--meSolid);color:var(--meSolid);font-size:11px;padding:6px 14px;border-radius:20px;text-align:center;animation:bounceIn .3s ease;max-width:95%}
 .footer{padding:10px;background:rgba(0,0,0,0.25);display:flex;flex-direction:column;gap:8px;position:relative}
 body.light .footer{background:rgba(255,255,255,0.7)}
 .row{display:flex;gap:8px;align-items:center}
 .footer input{flex:1;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:12px;padding:12px;color:inherit;outline:none;min-width:0}
-.emojiBox{position:absolute;left:50%;transform:translateX(-50%);bottom:78px;width:280px;max-width:calc(100% - 20px);background:#2a2a35;border:1px solid var(--border);border-radius:18px;padding:12px;display:none;grid-template-columns:repeat(6,1fr);gap:8px;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.emojiBox{position:absolute;left:50%;transform:translateX(-50%);bottom:78px;width:280px;max-width:calc(100% - 20px);background:#2a2a35;border:1px solid var(--border);border-radius:18px;padding:12px;display:none;grid-template-columns:repeat(6,1fr);gap:8px;z-index:99}
 body.light .emojiBox{background:#fff}
 .emojiBox.show{display:grid;animation:bounceIn .25s ease}
 .emojiItem{cursor:pointer;font-size:22px;text-align:center;padding:6px;border-radius:10px}
-.emojiItem:hover{background:rgba(168,85,247,0.2);transform:scale(1.2)}
 .btnKirim{width:48px;height:48px;min-width:48px;border:none;border-radius:14px;background:var(--me);color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center;box-shadow:0 5px 15px var(--meShadow);flex-shrink:0}
 .btnKirim:active{transform:scale(0.92)}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 18px;border-radius:20px;font-size:12px;display:none;z-index:99}
@@ -94,16 +107,15 @@ body.light .renameCard{background:#fff;color:#111;border-color:#e9d5ff}
 body.light .renamePreview{background:#faf5ff;border-color:#d8b4fe}
 .renameInput{width:100%;background:rgba(0,0,0,0.35);border:2px solid var(--meSolid);border-radius:14px;padding:14px 16px;color:#fff;outline:none;font-size:15px;font-weight:600;text-align:center}
 body.light .renameInput{background:#fff;color:#111}
-.renameInput:focus{box-shadow:0 0 0 4px var(--meShadow)}
 .renameWarn{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;padding:10px 12px;border-radius:12px;font-size:11px;line-height:1.5;text-align:left;margin:14px 0;display:flex;gap:8px}
 body.light .renameWarn{background:#fef2f2;color:#dc2626}
 .renameBtnRow{display:flex;gap:10px;margin-top:6px}
 .btnCancel{flex:1;padding:13px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:#fff;border-radius:14px;font-weight:600;cursor:pointer}
 body.light .btnCancel{color:#111;border-color:#ddd}
 .btnSave{flex:2;padding:13px;border:none;background:var(--me);color:#fff;border-radius:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 20px var(--meShadow)}
-.btnSave:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+.btnSave:disabled{opacity:.5;cursor:not-allowed}
 .progressDots{display:flex;gap:6px;justify-content:center;margin:10px 0}
-.dot{width:22px;height:6px;border-radius:10px;background:rgba(255,255,255,0.15);transition:.3s}
+.dot{width:22px;height:6px;border-radius:10px;background:rgba(255,255,255,0.15)}
 body.light .dot{background:#e5e7eb}
 .dot.active{background:var(--me)}
 .dot.used{background:#ef4444}
@@ -115,9 +127,9 @@ body.light .colorCard{background:#fff;color:#111}
 .colorGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
 .colorOpt{border:2px solid transparent;border-radius:16px;padding:10px;cursor:pointer;background:rgba(255,255,255,.05)}
 body.light .colorOpt{background:#f9fafb}
-.colorOpt.active{border-color:var(--meSolid);transform:scale(1.05);box-shadow:0 8px 20px var(--meShadow)}
+.colorOpt.active{border-color:var(--meSolid);transform:scale(1.05)}
 .colorCircle{width:42px;height:42px;border-radius:50%;margin:0 auto 6px}
-.colorPreview{padding:10px 14px;border-radius:18px;border-bottom-right-radius:6px;background:var(--me);color:#fff;font-size:13px;max-width:220px;margin:12px auto 0;box-shadow:0 4px 14px var(--meShadow)}
+.colorPreview{padding:10px 14px;border-radius:18px;border-bottom-right-radius:6px;background:var(--me);color:#fff;font-size:13px;max-width:220px;margin:12px auto 0}
 .colorBgPreview{height:54px;border-radius:14px;margin-top:12px;border:1px solid var(--border);display:grid;place-items:center;font-size:11px;font-weight:600;color:#fff;background:radial-gradient(200px at 20% 0%, var(--glow1) 0%, transparent 60%),radial-gradient(200px at 100% 100%, var(--glow2) 0%, transparent 60%),linear-gradient(180deg,var(--bgDark2),var(--bgDark))}
 </style>
 </head>
@@ -141,13 +153,13 @@ body.light .colorOpt{background:#f9fafb}
   </div>
   <div id="pageChat">
     <div class="header">
-      <div style="display:flex;gap:10px;align-items:center;min-width:0">
-        <div id="avatar" style="width:38px;height:38px;border-radius:12px;background:var(--me);display:grid;place-items:center;font-weight:700;color:#fff;flex-shrink:0">A</div>
-        <div style="min-width:0"><b id="namaAktif">-</b><div id="onlineCount" style="font-size:10px;color:#4ade80">● host online</div><div id="sisaRename" style="font-size:9px;opacity:0.6"></div></div>
+      <div style="display:flex;gap:8px;align-items:center;min-width:0;flex:1">
+        <div id="avatar" style="width:36px;height:36px;min-width:36px;border-radius:10px;background:var(--me);display:grid;place-items:center;font-weight:700;color:#fff;flex-shrink:0">A</div>
+        <div style="min-width:0;flex:1"><b id="namaAktif" style="font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">-</b><div id="onlineCount" style="font-size:10px;color:#4ade80">● host online</div><div id="sisaRename" style="font-size:9px;opacity:0.6"></div></div>
       </div>
       <div class="actions">
-        <button class="iconBtn" title="Ganti Tema + Background" onclick="openColorModal()">🎨</button>
-        <button class="iconBtn" title="Ganti Nama" onclick="openRenameModal()">✏️</button>
+        <button class="iconBtn" onclick="openColorModal()">🎨</button>
+        <button class="iconBtn" onclick="openRenameModal()">✏️</button>
         <button class="iconBtn" onclick="document.getElementById('searchBox').style.display=document.getElementById('searchBox').style.display==='none'?'block':'none'">🔍</button>
         <button class="iconBtn" onclick="toggleTheme()">🌗</button>
         <button class="iconBtn" onclick="logout()">↪️</button>
@@ -196,6 +208,12 @@ body.light .colorOpt{background:#f9fafb}
 <div id="toast" class="toast"></div>
 <input type="file" id="fileInput" hidden accept="image/*" onchange="kirimGambar(this)">
 <script>
+// KUNCI PINCH ZOOM + DOUBLE TAP ZOOM + GESER
+document.addEventListener('gesturestart',e=>e.preventDefault());
+document.addEventListener('touchmove',e=>{ if(e.scale!==1) e.preventDefault(); },{passive:false});
+let lastTouch=0;
+document.addEventListener('touchend',e=>{ let now=Date.now(); if(now-lastTouch<300 && !e.target.closest('#chat') && !e.target.closest('input')) e.preventDefault(); lastTouch=now; },{passive:false});
+
 const TOPIC="vortexsione_chat_2026_host_user";
 let akunAktif=null, akunLower=null, semuaPesan=[], deleteKey=null, es=null, replyTo=null;
 const BUBBLE_COLORS=[{id:'ungu', name:'Ungu Pink', grad:'linear-gradient(135deg,#a855f7,#ec4899)'},{id:'biru', name:'Biru Cyan', grad:'linear-gradient(135deg,#3b82f6,#06b6d4)'},{id:'hijau', name:'Hijau Mint', grad:'linear-gradient(135deg,#22c55e,#14b8a6)'},{id:'orange', name:'Orange', grad:'linear-gradient(135deg,#f97316,#ef4444)'},{id:'pink', name:'Pink', grad:'linear-gradient(135deg,#ec4899,#f43f5e)'},{id:'hitam', name:'Hitam', grad:'linear-gradient(135deg,#475569,#0f172a)'},{id:'kuning', name:'Kuning', grad:'linear-gradient(135deg,#eab308,#f97316)'}];
