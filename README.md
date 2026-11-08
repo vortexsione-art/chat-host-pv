@@ -2,7 +2,6 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<!-- KUNCI ZOOM - GA BISA ZOOM IN / OUT LAGI -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Chat User - Chat rahasia</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,29 +16,18 @@ body[data-bubble="pink"]{--me:linear-gradient(135deg,#ec4899,#f43f5e);--meSolid:
 body[data-bubble="hitam"]{--me:linear-gradient(135deg,#475569,#0f172a);--meSolid:#334155;--meShadow:rgba(0,0,0,.5);--glow1:#475569;--glow2:#0f172a;--bgDark:#050505;--bgDark2:#111827;--bg1:#f8fafc;--bg2:#e2e8f0;--you:#334155;--youLight:#cbd5e1;--youText:#1e293b;--youShadow:rgba(51,65,85,.35)}
 body[data-bubble="kuning"]{--me:linear-gradient(135deg,#eab308,#f97316);--meSolid:#eab308;--meShadow:rgba(234,179,8,.45);--glow1:#eab308;--glow2:#f97316;--bgDark:#171204;--bgDark2:#2a1f08;--bg1:#fefce8;--bg2:#fef9c3;--you:#a16207;--youLight:#fef08a;--youText:#854d0e;--youShadow:rgba(161,98,7,.35)}
 
-/* ===== KUNCI TOTAL: TENGAH + GA BISA GESER + GA BISA ZOOM ===== */
+/* KUNCI TOTAL: TENGAH + GA BISA GESER + GA BISA ZOOM + BACKGROUND DIEM */
 html,body{height:100%;height:100dvh;overscroll-behavior:none}
 html{overflow:hidden}
-body{
-  margin:0;padding:0;
-  background:var(--bgDark);
-  /* INI YANG BIKIN KE TENGAH BENERAN */
-  display:flex;justify-content:center;align-items:center;
-  /* INI YANG BIKIN GA BISA GESER KIRI-KANAN */
-  overflow:hidden;position:fixed;inset:0;width:100%;
-  touch-action:manipulation;
-  -webkit-user-select:none;user-select:none;
-}
+body{margin:0;padding:0;background:var(--bgDark);display:flex;justify-content:center;align-items:center;overflow:hidden;position:fixed;inset:0;width:100%;touch-action:manipulation;-webkit-user-select:none;user-select:none}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(900px 600px at 15% -10%, var(--glow1) 0%, transparent 55%),radial-gradient(700px 500px at 100% 110%, var(--glow2) 0%, transparent 55%),linear-gradient(180deg,var(--bgDark2),var(--bgDark))}
 body.light{background:var(--bg1)}
 body.light::before{background:radial-gradient(900px 600px at 15% -10%, var(--glow1) 0%, transparent 50%),radial-gradient(700px 500px at 100% 110%, var(--glow2) 0%, transparent 50%),linear-gradient(180deg,var(--bg2),var(--bg1))}
 body.light{color:#111;--card:rgba(255,255,255,0.85);--border:rgba(0,0,0,0.1)}
-/* Chat-nya doang yang boleh di-scroll & di-select */
-#chat{ -webkit-user-select:text;user-select:text;touch-action:pan-y;overscroll-behavior:contain }
-input,textarea{ -webkit-user-select:text;user-select:text;touch-action:manipulation }
-/* ===== SELESAI KUNCI ===== */
+#chat{-webkit-user-select:text;user-select:text;touch-action:pan-y;overscroll-behavior:contain}
+input,textarea{-webkit-user-select:text;user-select:text;touch-action:manipulation}
 
-.card{width:calc(100% - 24px);max-width:420px;height:calc(100dvh - 24px);max-height:760px;background:var(--card);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;z-index:1;margin:auto;flex-shrink:0}
+.card{width:calc(100% - 24px);max-width:420px;height:calc(100dvh - 36px);max-height:760px;background:var(--card);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;z-index:1;margin:auto;flex-shrink:0}
 .nama-error{display:none;align-items:center;gap:8px;background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.45);color:#fca5a5;padding:10px 12px;border-radius:12px;font-size:12px;font-weight:500;text-align:left;margin:-4px 0 12px;animation:shake .35s ease, fadeIn .25s ease}
 body.light .nama-error{background:#fef2f2;color:#dc2626;border-color:#fecaca}
 .nama-error.show{display:flex}
@@ -68,7 +56,6 @@ body.light .nama-error{background:#fef2f2;color:#dc2626;border-color:#fecaca}
 body.light .input{background:#fff}
 .btn{width:100%;padding:14px;border:none;border-radius:14px;background:var(--me);color:#fff;font-weight:700;cursor:pointer;box-shadow:0 8px 20px var(--meShadow)}
 .btn:active{transform:scale(0.97)}
-/* HEADER FIX - BIAR GA KEPOTONG KAYAK DI SCREENSHOT */
 .header{padding:10px 12px;background:rgba(0,0,0,0.2);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:nowrap;min-width:0}
 body.light .header{background:rgba(255,255,255,0.6)}
 .actions{display:flex;gap:5px;flex-shrink:0}
@@ -81,11 +68,20 @@ body.light .you{background:var(--youLight);color:var(--youText)}
 .replyTag{font-size:10px;opacity:0.7;border-left:2px solid currentColor;padding-left:6px;margin-bottom:4px}
 .meta{font-size:9px;opacity:0.6;margin-top:4px;text-align:right}
 .system{align-self:center;background:rgba(255,255,255,0.08);border:1px solid var(--meSolid);color:var(--meSolid);font-size:11px;padding:6px 14px;border-radius:20px;text-align:center;animation:bounceIn .3s ease;max-width:95%}
-.footer{padding:10px;background:rgba(0,0,0,0.25);display:flex;flex-direction:column;gap:8px;position:relative}
+
+/* ===== FOOTER DIKEATASIN - BIAR GA KELELEP GESTURE BAR ===== */
+.footer{
+  padding:12px 10px 26px 10px;
+  padding-bottom:calc(26px + env(safe-area-inset-bottom, 0px));
+  background:rgba(0,0,0,0.25);
+  display:flex;flex-direction:column;gap:8px;position:relative;
+  border-top:1px solid var(--border);
+  margin-bottom:0;
+}
 body.light .footer{background:rgba(255,255,255,0.7)}
 .row{display:flex;gap:8px;align-items:center}
-.footer input{flex:1;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:12px;padding:12px;color:inherit;outline:none;min-width:0}
-.emojiBox{position:absolute;left:50%;transform:translateX(-50%);bottom:78px;width:280px;max-width:calc(100% - 20px);background:#2a2a35;border:1px solid var(--border);border-radius:18px;padding:12px;display:none;grid-template-columns:repeat(6,1fr);gap:8px;z-index:99}
+.footer input{flex:1;height:48px;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:14px;padding:12px;color:inherit;outline:none;min-width:0}
+.emojiBox{position:absolute;left:50%;transform:translateX(-50%);bottom:92px;width:280px;max-width:calc(100% - 20px);background:#2a2a35;border:1px solid var(--border);border-radius:18px;padding:12px;display:none;grid-template-columns:repeat(6,1fr);gap:8px;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,.5)}
 body.light .emojiBox{background:#fff}
 .emojiBox.show{display:grid;animation:bounceIn .25s ease}
 .emojiItem{cursor:pointer;font-size:22px;text-align:center;padding:6px;border-radius:10px}
@@ -208,12 +204,10 @@ body.light .colorOpt{background:#f9fafb}
 <div id="toast" class="toast"></div>
 <input type="file" id="fileInput" hidden accept="image/*" onchange="kirimGambar(this)">
 <script>
-// KUNCI PINCH ZOOM + DOUBLE TAP ZOOM + GESER
 document.addEventListener('gesturestart',e=>e.preventDefault());
 document.addEventListener('touchmove',e=>{ if(e.scale!==1) e.preventDefault(); },{passive:false});
 let lastTouch=0;
 document.addEventListener('touchend',e=>{ let now=Date.now(); if(now-lastTouch<300 && !e.target.closest('#chat') && !e.target.closest('input')) e.preventDefault(); lastTouch=now; },{passive:false});
-
 const TOPIC="vortexsione_chat_2026_host_user";
 let akunAktif=null, akunLower=null, semuaPesan=[], deleteKey=null, es=null, replyTo=null;
 const BUBBLE_COLORS=[{id:'ungu', name:'Ungu Pink', grad:'linear-gradient(135deg,#a855f7,#ec4899)'},{id:'biru', name:'Biru Cyan', grad:'linear-gradient(135deg,#3b82f6,#06b6d4)'},{id:'hijau', name:'Hijau Mint', grad:'linear-gradient(135deg,#22c55e,#14b8a6)'},{id:'orange', name:'Orange', grad:'linear-gradient(135deg,#f97316,#ef4444)'},{id:'pink', name:'Pink', grad:'linear-gradient(135deg,#ec4899,#f43f5e)'},{id:'hitam', name:'Hitam', grad:'linear-gradient(135deg,#475569,#0f172a)'},{id:'kuning', name:'Kuning', grad:'linear-gradient(135deg,#eab308,#f97316)'}];
