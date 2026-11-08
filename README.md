@@ -16,10 +16,9 @@ body[data-bubble="pink"]{--me:linear-gradient(135deg,#ec4899,#f43f5e);--meSolid:
 body[data-bubble="hitam"]{--me:linear-gradient(135deg,#475569,#0f172a);--meSolid:#334155;--meShadow:rgba(0,0,0,.5);--glow1:#475569;--glow2:#0f172a;--bgDark:#050505;--bgDark2:#111827;--bg1:#f8fafc;--bg2:#e2e8f0;--you:#334155;--youLight:#cbd5e1;--youText:#1e293b;--youShadow:rgba(51,65,85,.35)}
 body[data-bubble="kuning"]{--me:linear-gradient(135deg,#eab308,#f97316);--meSolid:#eab308;--meShadow:rgba(234,179,8,.45);--glow1:#eab308;--glow2:#f97316;--bgDark:#171204;--bgDark2:#2a1f08;--bg1:#fefce8;--bg2:#fef9c3;--you:#a16207;--youLight:#fef08a;--youText:#854d0e;--youShadow:rgba(161,98,7,.35)}
 
-/* KUNCI TOTAL: TENGAH + GA BISA GESER + GA BISA ZOOM + BACKGROUND DIEM */
 html,body{height:100%;height:100dvh;overscroll-behavior:none}
 html{overflow:hidden}
-body{margin:0;padding:0;background:var(--bgDark);display:flex;justify-content:center;align-items:center;overflow:hidden;position:fixed;inset:0;width:100%;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+body{margin:0;padding:0;background:var(--bgDark);display:flex;justify-content:center;align-items:center;overflow:hidden;position:fixed;inset:0;width:100%;touch-action:manipulation;-webkit-user-select:none;user-select:none;color:#fff}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(900px 600px at 15% -10%, var(--glow1) 0%, transparent 55%),radial-gradient(700px 500px at 100% 110%, var(--glow2) 0%, transparent 55%),linear-gradient(180deg,var(--bgDark2),var(--bgDark))}
 body.light{background:var(--bg1)}
 body.light::before{background:radial-gradient(900px 600px at 15% -10%, var(--glow1) 0%, transparent 50%),radial-gradient(700px 500px at 100% 110%, var(--glow2) 0%, transparent 50%),linear-gradient(180deg,var(--bg2),var(--bg1))}
@@ -68,16 +67,7 @@ body.light .you{background:var(--youLight);color:var(--youText)}
 .replyTag{font-size:10px;opacity:0.7;border-left:2px solid currentColor;padding-left:6px;margin-bottom:4px}
 .meta{font-size:9px;opacity:0.6;margin-top:4px;text-align:right}
 .system{align-self:center;background:rgba(255,255,255,0.08);border:1px solid var(--meSolid);color:var(--meSolid);font-size:11px;padding:6px 14px;border-radius:20px;text-align:center;animation:bounceIn .3s ease;max-width:95%}
-
-/* ===== FOOTER DIKEATASIN - BIAR GA KELELEP GESTURE BAR ===== */
-.footer{
-  padding:12px 10px 26px 10px;
-  padding-bottom:calc(26px + env(safe-area-inset-bottom, 0px));
-  background:rgba(0,0,0,0.25);
-  display:flex;flex-direction:column;gap:8px;position:relative;
-  border-top:1px solid var(--border);
-  margin-bottom:0;
-}
+.footer{padding:12px 10px 26px 10px;padding-bottom:calc(26px + env(safe-area-inset-bottom, 0px));background:rgba(0,0,0,0.25);display:flex;flex-direction:column;gap:8px;position:relative;border-top:1px solid var(--border)}
 body.light .footer{background:rgba(255,255,255,0.7)}
 .row{display:flex;gap:8px;align-items:center}
 .footer input{flex:1;height:48px;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:14px;padding:12px;color:inherit;outline:none;min-width:0}
@@ -127,6 +117,16 @@ body.light .colorOpt{background:#f9fafb}
 .colorCircle{width:42px;height:42px;border-radius:50%;margin:0 auto 6px}
 .colorPreview{padding:10px 14px;border-radius:18px;border-bottom-right-radius:6px;background:var(--me);color:#fff;font-size:13px;max-width:220px;margin:12px auto 0}
 .colorBgPreview{height:54px;border-radius:14px;margin-top:12px;border:1px solid var(--border);display:grid;place-items:center;font-size:11px;font-weight:600;color:#fff;background:radial-gradient(200px at 20% 0%, var(--glow1) 0%, transparent 60%),radial-gradient(200px at 100% 100%, var(--glow2) 0%, transparent 60%),linear-gradient(180deg,var(--bgDark2),var(--bgDark))}
+
+/* ===== FONT PUTIH PAS MODE GELAP - BARU DITAMBAH ===== */
+body{color:#fff}
+body.light{color:#111}
+body:not(.light) input,body:not(.light) #pesan,body:not(.light) #inputNama,body:not(.light) #inputSearch,body:not(.light) .renameInput{color:#fff}
+body:not(.light) input::placeholder,body:not(.light) #pesan::placeholder{color:rgba(255,255,255,.55)}
+body:not(.light) .footer input{color:#fff}
+body:not(.light) #namaAktif,body:not(.light) #pageLogin,body:not(.light) .header{color:#fff}
+body.light input,body.light #pesan{color:#111}
+body.light input::placeholder,body.light #pesan::placeholder{color:rgba(0,0,0,.45)}
 </style>
 </head>
 <body>
